@@ -1,7 +1,7 @@
 [project]
 name = "murner"
 version = "0.1.0"
-description = "Add your description here"
+description = "Moves URNs using the NRS api"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
