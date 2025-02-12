@@ -1,11 +1,12 @@
 from celery import Celery
 import os
 import logging
+import sys
 from nrs.api import Api
 
 rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
 rabbitmq_queue = os.getenv("RABBITMQ_QUEUE", "task_queue")
-logger = logging.getLogger('tasker')
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 # app = Celery()
 # app.config_from_object('celeryconfig')
@@ -18,5 +19,7 @@ app = Celery(
 
 @app.task
 def call():
-    logger.info('Getting facts about cats:')
-    return Api.get_cat_fact()
+    logging.info('Getting facts about cats:')
+    fact = Api.get_cat_fact()
+    logging.info(fact)
+    return fact
