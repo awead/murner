@@ -25,4 +25,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
-CMD ["celery", "-A", "tasks", "--workdir", "src", "worker", "--loglevel=info"]
+CMD ["celery", "-A", "murner.tasks", "--workdir", "src/murner", "worker", "--loglevel=info"]
