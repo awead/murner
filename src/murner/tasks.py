@@ -1,8 +1,10 @@
-from celery import Celery
-import os
+import json
 import logging
+import os
 import sys
-from nrs.api import Api
+
+from celery import Celery
+from murner.nrs.api import Api
 
 rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
 rabbitmq_queue = os.getenv("RABBITMQ_QUEUE", "task_queue")
@@ -17,9 +19,17 @@ app = Celery(
     broker=f'pyamqp://guest@{rabbitmq_host}//'
 )
 
+def from_jsonl(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        for line in file:
+            json_obj = json.loads(line)  
+            call.delay(json_obj)
+        return "Success"
+
 @app.task
-def call():
-    logging.info('Getting facts about cats:')
+def call(data):
+    logging.info("Receiving data")
+    logging.info(data)
     fact = Api.get_cat_fact()
     logging.info(fact)
     return fact

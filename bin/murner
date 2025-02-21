@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import argparse
+from murner.tasks import from_jsonl
+
+def main():
+    parser = argparse.ArgumentParser(description="Runs worker by processing a file of json lines")
+    parser.add_argument("file_path", help="Path to the json lines file")
+    args = parser.parse_args()
+    
+    print(f"You entered: {args.file_path}")
+    from_jsonl(args.file_path)
+
+if __name__ == "__main__":
+    main()
+

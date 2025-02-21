@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from nrs.api import Api
+from murner.nrs.api import Api
 
 def test_get_cat_fact_success():
 
