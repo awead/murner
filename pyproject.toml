@@ -7,12 +7,13 @@ requires-python = ">=3.11"
 dependencies = [
     "celery>=5.4.0",
     "fastapi>=0.115.8",
+    "python-multipart>=0.0.20",
     "requests>=2.32.3",
     "uvicorn>=0.34.0",
 ]
 
 [tool.pytest.ini_options]
-addopts = "--cov"
+# addopts = "--cov"
 pythonpath = [
     "./src/murner"
 ]
@@ -28,5 +29,6 @@ dev = [
     "pytest-cov>=6.0.0",
     "pytest>=8.3.4",
     "ruff>=0.9.4",
+    "pytest-mock>=3.14.0",
 ]
 

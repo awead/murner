@@ -26,6 +26,9 @@ def from_jsonl(file_path):
             call.delay(json_obj)
         return "Success"
 
+def from_json(json_obj):
+    call.delay(json_obj)
+
 @app.task
 def call(data):
     logging.info("Receiving data")
