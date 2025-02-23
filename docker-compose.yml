@@ -9,6 +9,16 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
+  listener:
+    build:
+      context: ./
+    container_name: listener
+    ports:
+      - "8001:8000"
+    environment:
+      API_ENABLED: true
+    command: bin/listener
+
   worker:
     build:
       context: ./
@@ -24,9 +34,12 @@ services:
     container_name: development
     depends_on:
       - rabbitmq
+    ports:
+      - "8000:8000"
     volumes:
       - ./:/app
     working_dir: /app
     environment:
       RABBITMQ_HOST: rabbitmq
+      API_ENABLED: true
     command: sleep 99999999

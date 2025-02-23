@@ -22,4 +22,7 @@ RUN uv sync
 
 ENV PATH="/app/.venv/bin:$PATH"
 
+EXPOSE 8000
+
+# This is the default command to start a worker
 CMD ["celery", "-A", "murner.tasks", "--workdir", "src/murner", "worker", "--loglevel=info"]

@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+from fastapi import FastAPI
+import uvicorn
+import logging
+import os
+from murner.api.routes import router as murner_routes
+
+API_ENABLED = os.getenv("API_ENABLED", "false").lower() in ("true", "1", "yes")
+
+app = FastAPI(
+    title="Murner",
+    description="Upload jsonl files to be processed",
+    version="1.0.0",
+)
+
+# This is after defining the app!!!
+# Define the filter
+class EndpointFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.args and len(record.args) >= 3 and record.args[2] != "/healthcheck"
+
+# Add filter to the logger
+logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
+
+app.include_router(murner_routes, prefix="/api")
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
