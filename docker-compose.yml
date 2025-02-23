@@ -15,9 +15,6 @@ services:
     container_name: worker
     depends_on:
       - rabbitmq
-    volumes:
-      - ./:/app
-    working_dir: /app
     environment:
       RABBITMQ_HOST: rabbitmq
 
